@@ -9,8 +9,6 @@ suite('Functional Tests', function() {
   let threadId;
   let replyId;
 
-
-  
   test('Creating a new thread: POST request to /api/threads/{board}', function(done) {
     chai
       .request(server)
@@ -168,9 +166,9 @@ suite('Functional Tests', function() {
       });
   });
 
-
   after(function() {
-   delete process.env.NODE_ENV
-  });
+    delete process.env.NODE_ENV
+   });
+  
 
 });

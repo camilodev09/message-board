@@ -8,7 +8,10 @@ const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
+
 const app = express();
+
+
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -16,6 +19,25 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.use(function (req, res, next) {
+  // Do not allow DNS prefetching
+  res.setHeader('X-DNS-Prefetch-Control', 'off');
+  next();
+});
+
+app.use(function (req, res, next) {
+  // Only allow your site to send the referrer for your own pages
+  res.setHeader('Referrer-Policy', 'same-origin');
+  next();
+});
+
+
+app.use(function (req, res, next) {
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  next();
+});
 
 //Sample front-end
 app.route('/b/:board/')
